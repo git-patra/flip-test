@@ -2,10 +2,10 @@ package main
 
 import (
 	"boilerplate-go/config"
-	"boilerplate-go/internal/app/database"
-	"github.com/sirupsen/logrus"
 	"log"
 	"sync"
+
+	"github.com/sirupsen/logrus"
 )
 
 func main() {
@@ -16,18 +16,13 @@ func main() {
 		return
 	}
 
-	mongoDB, err := database.InitMongoDB(cfg)
-	if err != nil {
-		panic(err)
-	}
-
 	wg := sync.WaitGroup{}
 
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
 		logrus.Info("Starting HTTP handler")
-		MainHttpHandler(cfg, mongoDB)
+		MainHttpHandler(cfg)
 	}()
 
 	wg.Wait()

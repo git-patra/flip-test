@@ -5,11 +5,11 @@ import (
 	"boilerplate-go/api/routes"
 	"boilerplate-go/config"
 	"fmt"
+	"net/http"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/sirupsen/logrus"
-	"go.mongodb.org/mongo-driver/mongo"
-	"net/http"
 )
 
 type Server struct {
@@ -19,13 +19,11 @@ type Server struct {
 
 func NewServer(
 	cfg *config.AppConfig,
-	mongoDB *mongo.Client,
 ) *Server {
 
 	return &Server{
 		chiRouter: initializeChiRouter(
 			cfg,
-			mongoDB,
 		),
 		config: cfg,
 	}
@@ -50,7 +48,6 @@ func (server *Server) Start() error {
 
 func initializeChiRouter(
 	config *config.AppConfig,
-	mongoDB *mongo.Client,
 ) *chi.Mux {
 	chiRouter := chi.NewRouter()
 
@@ -59,7 +56,7 @@ func initializeChiRouter(
 	chiRouter.Use(customMiddleware.CORSMiddleware)
 
 	// Routes.
-	routes.RegisterRoutes(chiRouter, mongoDB, config)
+	routes.RegisterRoutes(chiRouter, config)
 
 	return chiRouter
 }

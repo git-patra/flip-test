@@ -3,13 +3,12 @@ package main
 import (
 	"boilerplate-go/config"
 	"boilerplate-go/internal/app/server"
-	"go.mongodb.org/mongo-driver/mongo"
 
 	"log"
 )
 
-func MainHttpHandler(cfg *config.AppConfig, mongoDB *mongo.Client) {
-	serverHttp := server.NewServer(cfg, mongoDB)
+func MainHttpHandler(cfg *config.AppConfig) {
+	serverHttp := server.NewServer(cfg)
 	err := serverHttp.Start()
 
 	if err != nil {

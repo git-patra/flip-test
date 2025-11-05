@@ -2,8 +2,9 @@ package config
 
 import (
 	"fmt"
-	"github.com/spf13/viper"
 	"time"
+
+	"github.com/spf13/viper"
 )
 
 type AppConfig struct {
@@ -11,18 +12,9 @@ type AppConfig struct {
 	AppEnv            string        `mapstructure:"APP_ENV"`
 	ServerAddress     string        `mapstructure:"SERVER_ADDRESS"`
 	ServerPort        int           `mapstructure:"SERVER_PORT"`
-	MongoDBConfig     MongoDBConfig `mapstructure:"MONGODB"`
 	BasicAuthUsername string        `mapstructure:"BASIC_AUTH_USERNAME"`
 	BasicAuthPassword string        `mapstructure:"BASIC_AUTH_PASSWORD"`
 	RequestTimeout    time.Duration `mapstructure:"REQUEST_TIMEOUT"`
-}
-
-type MongoDBConfig struct {
-	Host     string `mapstructure:"HOST"`
-	Port     string `mapstructure:"PORT"`
-	UserName string `mapstructure:"USERNAME"`
-	Password string `mapstructure:"PASSWORD"`
-	Database string `mapstructure:"database"`
 }
 
 func LoadConfig(configFilePath string) (*AppConfig, error) {
