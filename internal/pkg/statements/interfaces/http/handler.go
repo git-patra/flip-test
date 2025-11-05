@@ -1,11 +1,13 @@
 package httpiface
 
 import (
+	"boilerplate-go/internal/delivery/rest/response"
 	"boilerplate-go/internal/pkg/statements/usecase"
-	"encoding/json"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/sirupsen/logrus"
 )
 
 type Handler struct {
@@ -19,28 +21,38 @@ func NewHandler(p *usecase.ParseCSVUsecase, g *usecase.GetBalanceUsecase, i *use
 }
 
 func (h *Handler) Upload(w http.ResponseWriter, r *http.Request) {
+	var (
+		apiResponse *response.ApiResponse
+		ctx         = r.Context()
+	)
+
 	file, _, err := r.FormFile("file")
 	if err != nil {
-		http.Error(w, err.Error(), 400)
+		logrus.Warn(err.Error())
+		apiResponse = response.BuildErrorResponse(response.ValidationError)
+		response.JSON(w, apiResponse.StatusCode, apiResponse)
 		return
 	}
 	defer file.Close()
 
-	id, balance, issues, err := h.parseCSV.Execute(r.Context(), file)
+	result, err := h.parseCSV.Execute(ctx, file)
 	if err != nil {
-		http.Error(w, err.Error(), 500)
+		logrus.Warn(err.Error())
+		apiResponse = response.BuildErrorResponse(response.ValidationError)
+		response.JSON(w, apiResponse.StatusCode, apiResponse)
 		return
 	}
 
-	json.NewEncoder(w).Encode(map[string]any{
-		"upload_id": id, "balance": balance, "issues": issues,
-	})
+	apiResponse = response.BuildSuccessResponseWithData(response.Created, result)
+	response.JSON(w, apiResponse.StatusCode, apiResponse)
 }
 
 func (h *Handler) GetBalance(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("upload_id")
-	bal := h.getBalance.Execute(id)
-	json.NewEncoder(w).Encode(map[string]any{"upload_id": id, "balance": bal})
+	result := h.getBalance.Execute(id)
+
+	apiResponse := response.BuildSuccessResponseWithData(response.Ok, result)
+	response.JSON(w, apiResponse.StatusCode, apiResponse)
 }
 
 func (h *Handler) GetIssues(w http.ResponseWriter, r *http.Request) {
@@ -59,11 +71,8 @@ func (h *Handler) GetIssues(w http.ResponseWriter, r *http.Request) {
 	}
 
 	items, total := h.getIssues.Execute(id, statuses, page, size)
-	json.NewEncoder(w).Encode(map[string]any{
-		"upload_id": id,
-		"total":     total,
-		"page":      page,
-		"size":      size,
-		"data":      items,
-	})
+
+	metadata := response.SetPagination(page, size, total)
+	apiResponse := response.BuildSuccessResponseWithDataAndMetaData(response.Ok, items, metadata)
+	response.JSON(w, apiResponse.StatusCode, apiResponse)
 }

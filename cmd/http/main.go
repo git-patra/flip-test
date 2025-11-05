@@ -2,6 +2,9 @@ package main
 
 import (
 	"boilerplate-go/config"
+	"boilerplate-go/internal/pkg/statements"
+	"boilerplate-go/internal/pkg/statements/infrastructure/bus"
+	"context"
 	"log"
 	"sync"
 
@@ -18,11 +21,16 @@ func main() {
 
 	wg := sync.WaitGroup{}
 
+	exchange := bus.NewExchange()
+	// start consumers per queue
+	_ = statements.InitEventConsumers(context.Background(), exchange)
+	logrus.Info("[bus] consumers started")
+
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
 		logrus.Info("Starting HTTP handler")
-		MainHttpHandler(cfg)
+		MainHttpHandler(cfg, exchange)
 	}()
 
 	wg.Wait()

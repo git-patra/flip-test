@@ -18,6 +18,11 @@ type Transaction struct {
 }
 
 type FailedTransactionOccurred struct {
-	UploadID string `json:"upload_id"`
-	TxID     string `json:"tx_id"`
+	UploadID    string      `json:"upload_id"`
+	Transaction Transaction `json:"transaction"`
+}
+
+type PendingTransactionOccurred struct {
+	UploadID    string
+	Transaction Transaction `json:"transaction"`
 }

@@ -32,7 +32,7 @@ func (w *WorkerPool) Start(ctx context.Context) {
 				case <-ctx.Done():
 					return
 				case evt := <-w.in:
-					key := evt.UploadID + "/" + evt.TxID
+					key := evt.UploadID + "/" + evt.Transaction.ID
 					if _, seen := w.processed.Load(key); seen {
 						continue
 					}
@@ -52,7 +52,7 @@ func (w *WorkerPool) Start(ctx context.Context) {
 						}
 					}
 					if err != nil {
-						log.Printf("worker[%d]: failed after retries upload=%s tx=%s err=%v", id, evt.UploadID, evt.TxID, err)
+						log.Printf("worker[%d]: failed after retries upload=%s tx=%s err=%v", id, evt.UploadID, evt.Transaction.ID, err)
 					}
 				}
 			}

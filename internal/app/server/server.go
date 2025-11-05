@@ -4,6 +4,7 @@ import (
 	customMiddleware "boilerplate-go/api/middleware"
 	"boilerplate-go/api/routes"
 	"boilerplate-go/config"
+	"boilerplate-go/internal/pkg/statements/infrastructure/bus"
 	"fmt"
 	"net/http"
 
@@ -19,11 +20,12 @@ type Server struct {
 
 func NewServer(
 	cfg *config.AppConfig,
+	x *bus.Exchange,
 ) *Server {
-
 	return &Server{
 		chiRouter: initializeChiRouter(
 			cfg,
+			x,
 		),
 		config: cfg,
 	}
@@ -48,6 +50,7 @@ func (server *Server) Start() error {
 
 func initializeChiRouter(
 	config *config.AppConfig,
+	x *bus.Exchange,
 ) *chi.Mux {
 	chiRouter := chi.NewRouter()
 
@@ -56,7 +59,7 @@ func initializeChiRouter(
 	chiRouter.Use(customMiddleware.CORSMiddleware)
 
 	// Routes.
-	routes.RegisterRoutes(chiRouter, config)
+	routes.RegisterRoutes(chiRouter, config, x)
 
 	return chiRouter
 }

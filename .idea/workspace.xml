@@ -4,15 +4,17 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e4d35d3-4afb-45fe-a76c-de6178b9ee45" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.env.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.env.yaml" afterDir="false" />
+    <list default="true" id="1e4d35d3-4afb-45fe-a76c-de6178b9ee45" name="Changes" comment="feat: api statements, balance, and list trx">
       <change beforePath="$PROJECT_DIR$/api/routes/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes/routes.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/http/http_main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/http/http_main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/http/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/http/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/app/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/server/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/domain/entity/model.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/domain/entity/model.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/infrastructure/bus/consumer.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/infrastructure/bus/consumer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/infrastructure/bus/worker.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/infrastructure/bus/worker.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/init.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/interfaces/http/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/interfaces/http/handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/usecase/parse_csv_usecase.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/usecase/parse_csv_usecase.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +44,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build boilerplate-go/cmd/http.executor": "Debug",
+    "Go Build.go build boilerplate-go/cmd/http.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.GoLinterPluginOnboarding": "true",
     "RunOnceActivity.GoLinterPluginStorageMigration": "true",
@@ -63,6 +65,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/internal/pkg/statements" />
+      <recent name="$PROJECT_DIR$/internal/pkg/statements/interfaces/consumers" />
       <recent name="$PROJECT_DIR$/internal/pkg/statements/domain/entity" />
     </key>
   </component>
@@ -114,23 +118,11 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: api statements, balance, and list trx" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: api statements, balance, and list trx" />
+  </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/pkg/statements/interfaces/http/handler.go</url>
-          <line>29</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/pkg/statements/usecase/parse_csv_usecase.go</url>
-          <line>65</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

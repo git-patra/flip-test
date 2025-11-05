@@ -3,6 +3,7 @@ package usecase
 import (
 	"boilerplate-go/internal/pkg/statements/domain/constant"
 	"boilerplate-go/internal/pkg/statements/domain/entity"
+	"boilerplate-go/internal/pkg/statements/domain/response"
 	"boilerplate-go/internal/pkg/statements/infrastructure/bus"
 	"boilerplate-go/internal/pkg/statements/infrastructure/repo"
 	"bufio"
@@ -19,15 +20,15 @@ import (
 
 type ParseCSVUsecase struct {
 	repo *repo.InMemoryRepo
-	bus  *bus.InMemoryBus
+	xchg *bus.Exchange
 }
 
-func NewParseCSVUsecase(r *repo.InMemoryRepo, b *bus.InMemoryBus) *ParseCSVUsecase {
-	return &ParseCSVUsecase{repo: r, bus: b}
+func NewParseCSVUsecase(r *repo.InMemoryRepo, xchg *bus.Exchange) *ParseCSVUsecase {
+	return &ParseCSVUsecase{repo: r, xchg: xchg}
 }
 
-func (u *ParseCSVUsecase) Execute(ctx context.Context, r io.Reader) (uploadID string, balance int64, issues int, err error) {
-	uploadID = uuid.NewString()
+func (u *ParseCSVUsecase) Execute(ctx context.Context, r io.Reader) (result response.StatementResponse, err error) {
+	result.UploadID = uuid.NewString()
 
 	cr := csv.NewReader(bufio.NewReader(r))
 	cr.FieldsPerRecord = -1
@@ -39,7 +40,7 @@ func (u *ParseCSVUsecase) Execute(ctx context.Context, r io.Reader) (uploadID st
 			break
 		}
 		if err != nil {
-			return "", 0, 0, err
+			return result, err
 		}
 
 		line++
@@ -58,25 +59,31 @@ func (u *ParseCSVUsecase) Execute(ctx context.Context, r io.Reader) (uploadID st
 		desc := strings.TrimSpace(rec[5])
 
 		tx := entity.Transaction{
-			ID: uuid.NewString(), UploadID: uploadID, OccurredAt: time.Unix(ts, 0),
+			ID: uuid.NewString(), UploadID: result.UploadID, OccurredAt: time.Unix(ts, 0),
 			Counterparty: cp, Type: tType, Amount: amt, Status: status, Description: desc, Line: line,
 		}
 		u.repo.Save(tx)
 
-		if tx.Status == constant.SUCCESS {
-			if tx.Type == constant.CREDIT {
-				balance += tx.Amount
-			} else if tx.Type == constant.DEBIT {
-				balance -= tx.Amount
+		if tx.Status != constant.SUCCESS {
+			key := result.UploadID + "/" + tx.ID
+			switch status {
+			case constant.FAILED:
+				u.xchg.Publish(bus.ExchangeTransactions, bus.Envelope{
+					Type:       "FailedTransactionOccurred",
+					RoutingKey: bus.RKTransactionsFailed,
+					Key:        key,
+					Payload:    entity.FailedTransactionOccurred{UploadID: result.UploadID, Transaction: tx},
+				})
+			case constant.PENDING:
+				u.xchg.Publish(bus.ExchangeTransactions, bus.Envelope{
+					Type:       "PendingTransactionOccurred",
+					RoutingKey: bus.RKTransactionsPending,
+					Key:        key,
+					Payload:    entity.PendingTransactionOccurred{UploadID: result.UploadID, Transaction: tx},
+				})
 			}
-		} else if tx.Status == constant.FAILED || tx.Status == constant.PENDING {
-			issues++
-		}
-
-		if tx.Status == constant.FAILED {
-			u.bus.PublishNonBlocking(entity.FailedTransactionOccurred{UploadID: uploadID, TxID: tx.ID})
 		}
 	}
 
-	return uploadID, balance, issues, nil
+	return
 }
