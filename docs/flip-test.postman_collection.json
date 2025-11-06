@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "85a556b5-e695-4422-8be1-73b1bde42982",
+		"name": "flip-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10534643"
+	},
+	"item": [
+		{
+			"name": "Statements",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/patra/Documents/flip-test.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Default-Boiler}}/api/v1/statements",
+					"host": [
+						"{{Default-Boiler}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"statements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Transactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Default-Boiler}}/api/v1/transactions/issues?upload_id=674d7ce0-8f21-4d20-ab50-7f1b769350c5",
+					"host": [
+						"{{Default-Boiler}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transactions",
+						"issues"
+					],
+					"query": [
+						{
+							"key": "upload_id",
+							"value": "674d7ce0-8f21-4d20-ab50-7f1b769350c5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Balance",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Default-Boiler}}/api/v1/balance?upload_id=674d7ce0-8f21-4d20-ab50-7f1b769350c5",
+					"host": [
+						"{{Default-Boiler}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"balance"
+					],
+					"query": [
+						{
+							"key": "upload_id",
+							"value": "674d7ce0-8f21-4d20-ab50-7f1b769350c5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

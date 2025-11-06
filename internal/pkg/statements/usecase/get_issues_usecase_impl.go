@@ -18,6 +18,10 @@ func NewGetIssuesUsecase(r repo.InMemoryRepo) GetIssuesUsecase {
 func (u *getIssuesUsecase) Execute(uploadID string, statuses []string, page, size int) ([]entity.Transaction, int) {
 	txs := u.repo.GetByUpload(uploadID)
 
+	if len(txs) == 0 {
+		return []entity.Transaction{}, 0
+	}
+
 	filter := map[string]struct{}{}
 	for _, s := range statuses {
 		filter[strings.ToUpper(s)] = struct{}{}

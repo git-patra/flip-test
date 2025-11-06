@@ -1,0 +1,6 @@
+﻿timestamp, counterparty, type, amount, status, description
+1674507883, JOHN DOE, DEBIT, 250000, SUCCESS, restaurant
+1674507884, Patra,CREDIT, 250000,PENDING, restaurant
+1674507885, Flip, CREDIT, 250000, SUCCESS, restaurant
+1674507886, Chili Oil,DEBIT, 5000,FAILED, restaurant
+1674507887, Patra,CREDIT, 1000,SUCCESS, restaurant

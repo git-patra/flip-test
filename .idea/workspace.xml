@@ -4,23 +4,15 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e4d35d3-4afb-45fe-a76c-de6178b9ee45" name="Changes" comment="feat: make pub/sub similar with rmq">
+    <list default="true" id="1e4d35d3-4afb-45fe-a76c-de6178b9ee45" name="Changes" comment="feat: add hexagonal archi for usecase and repo">
+      <change afterPath="$PROJECT_DIR$/README" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/flip-test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/flip-test.postman_collection.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes/routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/http/http_main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/http/http_main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/server/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/consumer.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/consumer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/http.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/infrastructure/bus/consumer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/infrastructure/bus/exchange.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/infrastructure/bus/exchange.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/infrastructure/bus/worker.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/infrastructure/bus/worker.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/infrastructure/repo/in_memory_repo.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/infrastructure/repo/in_memory_repo.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/interfaces/http/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/interfaces/http/handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/usecase/get_balance_usecase.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/usecase/get_balance_usecase.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/usecase/get_issues_usecase.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/usecase/get_issues_usecase.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/usecase/handle_failed_tx_usecase.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/usecase/handle_failed_tx_usecase.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/usecase/handle_pending_tx_usecase.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/usecase/handle_pending_tx_usecase.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/usecase/parse_csv_usecase.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/usecase/parse_csv_usecase.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/database/init.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/pkg/statements/usecase/get_issues_usecase_impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pkg/statements/usecase/get_issues_usecase_impl.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +43,10 @@
   &quot;keyToString&quot;: {
     &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
     &quot;Go Build.go build boilerplate-go/cmd/http.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.TestGetBalanceUsecase_Execute in boilerplate-go/internal/pkg/statements/usecase.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.TestGetIssuesUsecase_Execute in boilerplate-go/internal/pkg/statements/usecase.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.TestNewGetBalanceUsecase in boilerplate-go/internal/pkg/statements/usecase.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.TestNewGetIssuesUsecase in boilerplate-go/internal/pkg/statements/usecase.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.GoLinterPluginOnboarding&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.GoLinterPluginStorageMigration&quot;: &quot;true&quot;,
@@ -66,17 +62,19 @@
     &quot;last_opened_file_path&quot;: &quot;/Users/patra/Project/flip-test&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs" />
       <recent name="$PROJECT_DIR$/internal/pkg/statements" />
       <recent name="$PROJECT_DIR$/internal/pkg/statements/interfaces/consumers" />
       <recent name="$PROJECT_DIR$/internal/pkg/statements/domain/entity" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build boilerplate-go/cmd/http">
     <configuration name="go build boilerplate-go/cmd/http" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="flip-test" />
       <working_directory value="$PROJECT_DIR$" />
@@ -86,9 +84,61 @@
       <filePath value="$PROJECT_DIR$/cmd/http/main.go" />
       <method v="2" />
     </configuration>
+    <configuration name="TestGetBalanceUsecase_Execute in boilerplate-go/internal/pkg/statements/usecase" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="flip-test" />
+      <working_directory value="$PROJECT_DIR$/internal/pkg/statements/usecase" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="boilerplate-go/internal/pkg/statements/usecase" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestGetBalanceUsecase_Execute\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestGetIssuesUsecase_Execute in boilerplate-go/internal/pkg/statements/usecase" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="flip-test" />
+      <working_directory value="$PROJECT_DIR$/internal/pkg/statements/usecase" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="boilerplate-go/internal/pkg/statements/usecase" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestGetIssuesUsecase_Execute\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestNewGetBalanceUsecase in boilerplate-go/internal/pkg/statements/usecase" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="flip-test" />
+      <working_directory value="$PROJECT_DIR$/internal/pkg/statements/usecase" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="boilerplate-go/internal/pkg/statements/usecase" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestNewGetBalanceUsecase\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestNewGetIssuesUsecase in boilerplate-go/internal/pkg/statements/usecase" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="flip-test" />
+      <working_directory value="$PROJECT_DIR$/internal/pkg/statements/usecase" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="boilerplate-go/internal/pkg/statements/usecase" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestNewGetIssuesUsecase\E$" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build boilerplate-go/cmd/http" />
+        <item itemvalue="Go Test.TestGetIssuesUsecase_Execute in boilerplate-go/internal/pkg/statements/usecase" />
+        <item itemvalue="Go Test.TestNewGetIssuesUsecase in boilerplate-go/internal/pkg/statements/usecase" />
+        <item itemvalue="Go Test.TestGetBalanceUsecase_Execute in boilerplate-go/internal/pkg/statements/usecase" />
+        <item itemvalue="Go Test.TestNewGetBalanceUsecase in boilerplate-go/internal/pkg/statements/usecase" />
       </list>
     </recent_temporary>
   </component>
@@ -127,7 +177,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: api statements, balance, and list trx" />
     <MESSAGE value="feat: make pub/sub similar with rmq" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: make pub/sub similar with rmq" />
+    <MESSAGE value="feat: add hexagonal archi for usecase and repo" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add hexagonal archi for usecase and repo" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
