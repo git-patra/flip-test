@@ -11,12 +11,12 @@ import (
 )
 
 type Handler struct {
-	parseCSV   *usecase.ParseCSVUsecase
-	getBalance *usecase.GetBalanceUsecase
-	getIssues  *usecase.GetIssuesUsecase
+	parseCSV   usecase.ParseCSVUsecase
+	getBalance usecase.GetBalanceUsecase
+	getIssues  usecase.GetIssuesUsecase
 }
 
-func NewHandler(p *usecase.ParseCSVUsecase, g *usecase.GetBalanceUsecase, i *usecase.GetIssuesUsecase) *Handler {
+func NewHandler(p usecase.ParseCSVUsecase, g usecase.GetBalanceUsecase, i usecase.GetIssuesUsecase) *Handler {
 	return &Handler{parseCSV: p, getBalance: g, getIssues: i}
 }
 

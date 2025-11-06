@@ -1,6 +1,7 @@
 package statements
 
 import (
+	"boilerplate-go/internal/pkg/statements/domain/constant"
 	"boilerplate-go/internal/pkg/statements/domain/entity"
 	"boilerplate-go/internal/pkg/statements/infrastructure/bus"
 	"boilerplate-go/internal/pkg/statements/usecase"
@@ -9,21 +10,21 @@ import (
 )
 
 type EventModule struct {
-	Exchange *bus.Exchange
+	Exchange bus.Exchange
 }
 
-func InitEventConsumers(ctx context.Context, x *bus.Exchange) *EventModule {
+func InitEventConsumers(ctx context.Context, x bus.Exchange) *EventModule {
 	// Bind queues
 	failedQ := x.Subscribe(
-		bus.ExchangeTransactions,
-		bus.QueueReconcileFailed,
-		func(e bus.Envelope) bool { return e.RoutingKey == bus.RKTransactionsFailed },
+		constant.ExchangeTransactions,
+		constant.QueueReconcileFailed,
+		func(e bus.Envelope) bool { return e.RoutingKey == constant.RKTransactionsFailed },
 		1024,
 	)
 	pendingQ := x.Subscribe(
-		bus.ExchangeTransactions,
-		bus.QueueReviewPending,
-		func(e bus.Envelope) bool { return e.RoutingKey == bus.RKTransactionsPending },
+		constant.ExchangeTransactions,
+		constant.QueueReviewPending,
+		func(e bus.Envelope) bool { return e.RoutingKey == constant.RKTransactionsPending },
 		1024,
 	)
 
@@ -32,7 +33,7 @@ func InitEventConsumers(ctx context.Context, x *bus.Exchange) *EventModule {
 	pendingUC := usecase.NewReviewPendingTxUsecase()
 
 	// Consumers
-	failedConsumer := bus.NewConsumer(4, 3, failedQ, func(ctx context.Context, env bus.Envelope) error {
+	failedConsumer := bus.NewWorker(4, 3, failedQ, func(ctx context.Context, env bus.Envelope) error {
 		p, ok := env.Payload.(entity.FailedTransactionOccurred)
 		if !ok {
 			return fmt.Errorf("bad payload for %s", env.RoutingKey)
@@ -41,7 +42,7 @@ func InitEventConsumers(ctx context.Context, x *bus.Exchange) *EventModule {
 	})
 	failedConsumer.Start(ctx)
 
-	pendingConsumer := bus.NewConsumer(2, 2, pendingQ, func(ctx context.Context, env bus.Envelope) error {
+	pendingConsumer := bus.NewWorker(2, 2, pendingQ, func(ctx context.Context, env bus.Envelope) error {
 		p, ok := env.Payload.(entity.PendingTransactionOccurred)
 		if !ok {
 			return fmt.Errorf("bad payload for %s", env.RoutingKey)

@@ -20,7 +20,7 @@ type Server struct {
 
 func NewServer(
 	cfg *config.AppConfig,
-	x *bus.Exchange,
+	x bus.Exchange,
 ) *Server {
 	return &Server{
 		chiRouter: initializeChiRouter(
@@ -50,7 +50,7 @@ func (server *Server) Start() error {
 
 func initializeChiRouter(
 	config *config.AppConfig,
-	x *bus.Exchange,
+	x bus.Exchange,
 ) *chi.Mux {
 	chiRouter := chi.NewRouter()
 

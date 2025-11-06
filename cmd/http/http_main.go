@@ -8,7 +8,7 @@ import (
 	"log"
 )
 
-func MainHttpHandler(cfg *config.AppConfig, x *bus.Exchange) {
+func MainHttpHandler(cfg *config.AppConfig, x bus.Exchange) {
 	serverHttp := server.NewServer(cfg, x)
 	err := serverHttp.Start()
 

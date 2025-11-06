@@ -12,7 +12,7 @@ type Module struct {
 	Handler *httpiface.Handler
 }
 
-func InitStatements(ctx context.Context, x *bus.Exchange) *Module {
+func InitStatements(ctx context.Context, x bus.Exchange) *Module {
 	// infra
 	memoryRepo := repo.NewInMemoryRepo()
 

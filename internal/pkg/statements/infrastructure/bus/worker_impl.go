@@ -9,7 +9,7 @@ import (
 
 type HandlerFn func(ctx context.Context, env Envelope) error
 
-type Consumer struct {
+type worker struct {
 	workers    int
 	maxRetries int
 	in         <-chan Envelope
@@ -17,17 +17,17 @@ type Consumer struct {
 	processed  sync.Map // idempotency by Envelope.Key
 }
 
-func NewConsumer(workers, maxRetries int, in <-chan Envelope, h HandlerFn) *Consumer {
+func NewWorker(workers, maxRetries int, in <-chan Envelope, h HandlerFn) Worker {
 	if workers <= 0 {
 		workers = 4
 	}
 	if maxRetries < 0 {
 		maxRetries = 0
 	}
-	return &Consumer{workers: workers, maxRetries: maxRetries, in: in, handler: h}
+	return &worker{workers: workers, maxRetries: maxRetries, in: in, handler: h}
 }
 
-func (c *Consumer) Start(ctx context.Context) {
+func (c *worker) Start(ctx context.Context) {
 	wg := sync.WaitGroup{}
 	for i := 0; i < c.workers; i++ {
 		wg.Add(1)

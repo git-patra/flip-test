@@ -14,7 +14,7 @@ import (
 )
 
 // RegisterRoutes configures the main routes for the application.
-func RegisterRoutes(apiV1Router *chi.Mux, cfg *config.AppConfig, x *bus.Exchange) {
+func RegisterRoutes(apiV1Router *chi.Mux, cfg *config.AppConfig, x bus.Exchange) {
 	// Create a sub-router for API version 1
 	apiV1Router.Mount("/api/v1", apiV1Router)
 
