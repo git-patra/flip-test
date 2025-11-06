@@ -33,7 +33,7 @@ Core code is organized under `internal/pkg/statements` and tests exercise usecas
 ## How to run
 
 Prerequisites:
-- Install Go (recommended Go 1.20 or newer) on macOS.
+- Install Go (recommended Go 1.20 or newer).
 - Clone the repository:
   - `git clone git@github.com:git-patra/flip-test.git`
   - `cd flip-test`
