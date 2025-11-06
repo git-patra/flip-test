@@ -52,11 +52,6 @@ Run tests:
 Run the application:
   - `make run`
 
-## Notes
-
-- Module path and exact commands depend on the declared `module` in `go.mod`.
-- Replace the in-memory repository in `internal/pkg/statements/infrastructure/repo` with a production store when persisting data is required.
-
 ## Documentation and Test
 
 - csv file example: docs/flip-test.csv (in this repo)
