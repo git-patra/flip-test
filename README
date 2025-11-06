@@ -7,16 +7,16 @@ Core code is organized under `internal/pkg/statements` and tests exercise usecas
 
 ## Architecture overview
 
-\- (DDD) Layered, hexagonal style with clear separation of concerns:
-  \- `internal/pkg/statements/domain` \- domain entities (e.g. `Transaction`) and domain constants.
-  \- `internal/pkg/statements/usecase` \- business logic / application usecases (e.g. `GetBalanceUsecase`, `GetIssuesUsecase`).
-  \- `internal/pkg/statements/infrastructure` \- repository implementations (in-memory repo used in tests; replaceable with a DB-backed repo).
-  \- `internal/pkg/statements/delivery` \- HTTP handlers exposing usecases as REST endpoints.
-  \- Tests live alongside the implementation in the same package, e.g. `internal/pkg/statements/usecase/\`get_balance_usecase_impl_test.go\`` and similar.
+- (DDD) Layered, hexagonal style with clear separation of concerns:
+  - `internal/pkg/statements/domain` - domain entities (e.g. `Transaction`) and domain constants.
+  - `internal/pkg/statements/usecase` - business logic / application usecases (e.g. `GetBalanceUsecase`, `GetIssuesUsecase`).
+  - `internal/pkg/statements/infrastructure` - repository implementations (in-memory repo used in tests; replaceable with a DB-backed repo).
+  - `internal/pkg/statements/delivery` - HTTP handlers exposing usecases as REST endpoints.
+  - Tests live alongside the implementation in the same package, e.g. `internal/pkg/statements/usecase/\`get_balance_usecase_impl_test.go\`` and similar.
 
-\- Design choices:
-  \- Usecases depend on repository abstractions (interfaces) allowing easy test doubles and in-memory repos for fast unit tests.
-  \- Small, focused entities and usecase functions for testability.
+- Design choices:
+  - Usecases depend on repository abstractions (interfaces) allowing easy test doubles and in-memory repos for fast unit tests.
+  - Small, focused entities and usecase functions for testability.
 
 ## Trade-offs
 
@@ -33,43 +33,43 @@ Core code is organized under `internal/pkg/statements` and tests exercise usecas
 ## How to run
 
 Prerequisites:
-\- Install Go (recommended Go 1.20 or newer) on macOS.
-\- Clone the repository:
-  \- `git clone git@github.com:git-patra/flip-test.git`
-  \- `cd flip-test`
+- Install Go (recommended Go 1.20 or newer) on macOS.
+- Clone the repository:
+  - `git clone git@github.com:git-patra/flip-test.git`
+  - `cd flip-test`
 
 Run unit tests:
-\- Run all tests:
-  \- `go test ./...`
-\- Run only statements usecase tests:
-  \- `go test ./internal/pkg/statements/...`
+- Run all tests:
+  - `go test ./...`
+- Run only statements usecase tests:
+  - `go test ./internal/pkg/statements/...`
 
 Run the application:
-  \- `go mod tidy` (to ensure dependencies are up to date)
-  \- `make run`
+  - `go mod tidy` (to ensure dependencies are up to date)
+  - `make run`
 
 ## Notes
 
-\- Module path and exact commands depend on the declared `module` in `go.mod`.
-\- Replace the in-memory repository in `internal/pkg/statements/infrastructure/repo` with a production store when persisting data is required.
+- Module path and exact commands depend on the declared `module` in `go.mod`.
+- Replace the in-memory repository in `internal/pkg/statements/infrastructure/repo` with a production store when persisting data is required.
 
 ## Documentation and Test
 
-\- csv file example: docs/flip-test.csv (in this repo)
-\- Postman collection: docs/Flip-Test.postman_collection.json (in this repo)
+- csv file example: docs/flip-test.csv (in this repo)
+- Postman collection: docs/Flip-Test.postman_collection.json (in this repo)
 
-\- Statement CURL Example:
+- Statement CURL Example:
 ```bash
 curl --location 'http://localhost:8016/api/v1/statements' \
 --form 'file=@"/Users/patra/Documents/flip-test.csv"'
 ```
 
-\- Get Balance CURL Example:
+- Get Balance CURL Example:
 ```bash
 curl --location 'http://localhost:8016/api/v1/balance?upload_id=674d7ce0-8f21-4d20-ab50-7f1b769350c5'
 ```
 
-\- Get Issues CURL Example:
+- Get Issues CURL Example:
 ```bash
 curl --location 'http://localhost:8016/api/v1/transactions/issues?upload_id=674d7ce0-8f21-4d20-ab50-7f1b769350c5'
 ```
