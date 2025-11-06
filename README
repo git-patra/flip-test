@@ -38,11 +38,15 @@ Prerequisites:
   - `git clone git@github.com:git-patra/flip-test.git`
   - `cd flip-test`
 
-Run unit tests:
+Run tests:
 - Run all tests:
   - `go test ./...`
 - Run only statements usecase tests:
   - `go test ./internal/pkg/statements/...`
+- Run integration test only:
+    - `go test -v ./internal/pkg/statements/interfaces/http -run Integration -count=1`
+- Run with race detector (Makefile target):
+    - `make race`
 
 Run the application:
   - `go mod tidy` (to ensure dependencies are up to date)
